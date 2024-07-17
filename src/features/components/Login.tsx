@@ -133,10 +133,10 @@ export default function Login() {
           >
             Log In
           </Button>
-          <Grid container>
-            <Grid item xs>
+          <Grid container justifyContent="center">
+            {/* <Grid item xs>
               <Link to="#">Forgot password?</Link>
-            </Grid>
+            </Grid> */}
             <Grid item>
               <Link to="/signup">{"Don't have an account? Sign Up"}</Link>
             </Grid>
