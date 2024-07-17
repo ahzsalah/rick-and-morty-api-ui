@@ -9,6 +9,10 @@ import { useEffect, useState } from "react";
 import FavoriteCharacters from "./features/components/FavoriteCharacters";
 import { CharacterDTO } from "./features/dtos/CharacterDTO";
 import { fetchAllCharacters } from "./api/apiService";
+import Login from "./features/components/Login";
+import Logout from "./features/components/Logout";
+import SignUp from "./features/components/SignUp";
+import PrivateRoute from "./features/components/PrivateRoute";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -46,26 +50,47 @@ function App() {
       <div className="container">
         <DefaultAppBar />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <Home />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/logout"
+            element={
+              <PrivateRoute>
+                <Logout />
+              </PrivateRoute>
+            }
+          />{" "}
           <Route
             path="/characters"
             element={
-              <FetchedCharacters
-                search={search}
-                setSearch={setSearch}
-                favorites={favorites}
-                toggleFavorite={toggleFavorite}
-              />
+              <PrivateRoute>
+                <FetchedCharacters
+                  search={search}
+                  setSearch={setSearch}
+                  favorites={favorites}
+                  toggleFavorite={toggleFavorite}
+                />
+              </PrivateRoute>
             }
           />{" "}
           <Route path="/character/:id" element={<SingleCharacter />} />
           <Route
             path="/favorites"
             element={
-              <FavoriteCharacters
-                favorites={favoriteCharacters}
-                toggleFavorite={toggleFavorite}
-              />
+              <PrivateRoute>
+                <FavoriteCharacters
+                  favorites={favoriteCharacters}
+                  toggleFavorite={toggleFavorite}
+                />
+              </PrivateRoute>
             }
           />
         </Routes>

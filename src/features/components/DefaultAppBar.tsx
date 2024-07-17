@@ -7,6 +7,7 @@ import { Box, Button } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link, useNavigate } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { useAuth } from "../../contexts/AuthContext";
 
 const darkTheme = createTheme({
   palette: {
@@ -18,10 +19,20 @@ const darkTheme = createTheme({
 });
 
 export default function DefaultAppBar() {
+  const { logout } = useAuth();
   const navigate = useNavigate();
 
   const handleFavoriteClick = () => {
     navigate("/favorites");
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate("/login");
+    } catch {
+      console.error("Failed to log out");
+    }
   };
 
   return (
@@ -64,6 +75,13 @@ export default function DefaultAppBar() {
           <IconButton color="inherit" onClick={handleFavoriteClick}>
             <FavoriteIcon />
           </IconButton>
+          <Button
+            color="inherit"
+            onClick={handleLogout}
+            style={{ marginLeft: "auto" }}
+          >
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
     </ThemeProvider>
