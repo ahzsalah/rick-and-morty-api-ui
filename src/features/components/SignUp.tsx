@@ -1,6 +1,16 @@
 import React, { useRef, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  Avatar,
+  Box,
+  Button,
+  TextField,
+  Typography,
+  Grid,
+  Container,
+} from "@mui/material";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 export default function SignUp() {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -42,27 +52,133 @@ export default function SignUp() {
   };
 
   return (
-    <div>
-      <h2>Sign Up</h2>
-      {error && <p>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <input type="email" ref={emailRef} required placeholder="Email" />
-        <input
-          type="password"
-          ref={passwordRef}
-          required
-          placeholder="Password"
-        />
-        <input
-          type="password"
-          ref={passwordConfirmRef}
-          required
-          placeholder="Confirm Password"
-        />
-        <button disabled={loading} type="submit">
+    <Container component="main" maxWidth="xs">
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
           Sign Up
-        </button>
-      </form>
-    </div>
+        </Typography>
+        {error && <Typography color="error">{error}</Typography>}
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <TextField
+            sx={{
+              "& .MuiInputBase-input": {
+                color: "gray",
+              },
+              "& .MuiInputLabel-root": {
+                color: "gray",
+              },
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: "gray",
+                },
+                "&:hover fieldset": {
+                  borderColor: "gray",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "gray",
+                },
+              },
+            }}
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            autoFocus
+            inputRef={emailRef}
+          />
+          <TextField
+            sx={{
+              "& .MuiInputBase-input": {
+                color: "gray",
+              },
+              "& .MuiInputLabel-root": {
+                color: "gray",
+              },
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: "gray",
+                },
+                "&:hover fieldset": {
+                  borderColor: "gray",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "gray",
+                },
+              },
+            }}
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            inputRef={passwordRef}
+          />
+          <TextField
+            sx={{
+              "& .MuiInputBase-input": {
+                color: "gray",
+              },
+              "& .MuiInputLabel-root": {
+                color: "gray",
+              },
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: "gray",
+                },
+                "&:hover fieldset": {
+                  borderColor: "gray",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "gray",
+                },
+              },
+            }}
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="passwordConfirm"
+            label="Confirm Password"
+            type="password"
+            id="passwordConfirm"
+            autoComplete="new-password"
+            inputRef={passwordConfirmRef}
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            disabled={loading}
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Sign Up
+          </Button>
+          <Grid container justifyContent="center">
+            <Grid item>
+              <Link to="/login">Already have an account? Log in</Link>
+            </Grid>
+          </Grid>
+        </Box>
+      </Box>
+    </Container>
   );
 }
