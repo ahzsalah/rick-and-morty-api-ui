@@ -5,7 +5,8 @@ import IconButton from "@mui/material/IconButton";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { Box, Button } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 const darkTheme = createTheme({
   palette: {
@@ -17,6 +18,12 @@ const darkTheme = createTheme({
 });
 
 export default function DefaultAppBar() {
+  const navigate = useNavigate();
+
+  const handleFavoriteClick = () => {
+    navigate("/favorites");
+  };
+
   return (
     <ThemeProvider theme={darkTheme}>
       <AppBar className="app-bar">
@@ -54,6 +61,9 @@ export default function DefaultAppBar() {
               Characters
             </Button>
           </Box>
+          <IconButton color="inherit" onClick={handleFavoriteClick}>
+            <FavoriteIcon />
+          </IconButton>
         </Toolbar>
       </AppBar>
     </ThemeProvider>

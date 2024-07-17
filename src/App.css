@@ -46,12 +46,22 @@
 
 .card {
   margin: 15px;
-  padding: 20px;
   width: 185px;
+  padding: 15px;
 }
 
 .card-media {
   border-radius: 5%;
+}
+
+.card-action {
+  padding: 15px;
+}
+
+.card-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .app-bar {

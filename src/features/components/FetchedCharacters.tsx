@@ -6,7 +6,19 @@ import { CharacterDTO } from "../dtos/CharacterDTO";
 import SearchBar from "./SearchBar";
 import { fetchCharacters, searchCharacters } from "./../../api/apiService";
 
-export default function FetchedCharacters() {
+interface FetchedCharactersProps {
+  search: string;
+  setSearch: (value: string) => void;
+  favorites: number[];
+  toggleFavorite: (id: number) => void;
+}
+
+export default function FetchedCharacters({
+  search,
+  setSearch,
+  favorites,
+  toggleFavorite,
+}: FetchedCharactersProps) {
   const [characters, setCharacters] = useState<CharacterDTO[]>([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -14,7 +26,7 @@ export default function FetchedCharacters() {
   const [filteredCharacters, setFilteredCharacters] = useState<CharacterDTO[]>(
     []
   );
-  const [search, setSearch] = useState("");
+  // const [search, setSearch] = useState("");
 
   useEffect(() => {
     const getCharacters = async () => {
@@ -73,6 +85,8 @@ export default function FetchedCharacters() {
             name={character.name}
             status={character.status}
             image={character.image}
+            isFavorite={favorites.includes(character.id)}
+            toggleFavorite={toggleFavorite}
           />
         ))}
       </div>

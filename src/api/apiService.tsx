@@ -32,3 +32,18 @@ export const searchCharacters = async (
   }
   return response.json();
 };
+
+export const fetchAllCharacters = async (): Promise<CharacterDTO[]> => {
+  let characters: CharacterDTO[] = [];
+  let page = 1;
+  let totalPages = 1;
+
+  while (page <= totalPages) {
+    const response = await fetchCharacters(page);
+    characters = [...characters, ...response.results];
+    totalPages = response.info.pages;
+    page += 1;
+  }
+
+  return characters;
+};
