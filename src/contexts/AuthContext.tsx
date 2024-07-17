@@ -9,7 +9,6 @@ import {
 import { auth } from "../firebaseConfig";
 import { AuthContextType } from "../types/auth";
 
-// Create the context with a default value
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function useAuth() {
