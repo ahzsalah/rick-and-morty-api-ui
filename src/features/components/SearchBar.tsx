@@ -51,13 +51,14 @@ interface SearchBarProps {
 }
 
 export default function SearchBar({ search, setSearch }: SearchBarProps) {
-  const debouncedSetSearch = useMemo(
-    () => debounce(setSearch, 300),
-    [setSearch]
-  );
+  // const debouncedSetSearch = useMemo(
+  //   () => debounce(setSearch, 300),
+  //   [setSearch]
+  // );
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    debouncedSetSearch(e.target.value);
+    // debouncedSetSearch(e.target.value);
+    setSearch(e.target.value);
   };
 
   return (

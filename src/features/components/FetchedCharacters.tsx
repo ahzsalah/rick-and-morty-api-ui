@@ -66,30 +66,30 @@ export default function FetchedCharacters({
     }
   };
 
-  if (loading) {
-    return (
-      <div className="loading-container">
-        <Bars height="80" width="80" color="#1976d2" ariaLabel="loading" />
-      </div>
-    );
-  }
-
   return (
     <div className="characters-container">
-      <SearchBar search={search} setSearch={setSearch} />{" "}
-      <div className="card-container">
-        {filteredCharacters.map((character) => (
-          <ActionAreaCard
-            key={character.id}
-            id={character.id}
-            name={character.name}
-            status={character.status}
-            image={character.image}
-            isFavorite={favorites.includes(character.id)}
-            toggleFavorite={toggleFavorite}
-          />
-        ))}
-      </div>
+      <SearchBar search={search} setSearch={setSearch} />
+
+      {loading ? (
+        <div className="loading-container">
+          <Bars height="80" width="80" color="#1976d2" ariaLabel="loading" />
+        </div>
+      ) : (
+        <div className="card-container">
+          {filteredCharacters.map((character) => (
+            <ActionAreaCard
+              key={character.id}
+              id={character.id}
+              name={character.name}
+              status={character.status}
+              image={character.image}
+              isFavorite={favorites.includes(character.id)}
+              toggleFavorite={toggleFavorite}
+            />
+          ))}
+        </div>
+      )}
+
       <div className="page-controls">
         <button
           className="single-control"
