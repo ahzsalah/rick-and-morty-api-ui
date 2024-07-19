@@ -1,19 +1,25 @@
 import "./../../App.css";
 import RickAndMortyHome from "./../../assets/home/rick-morty-home.jpg";
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function Home() {
+  const { currentUser } = useAuth();
   return (
     <div className="home-contents">
       <div className="home-container">
-        <div className="image-container">
+        <div className="image-container home-content">
           <img
             className="home-image"
             src={RickAndMortyHome}
             alt="Rick and Morty Home"
           />
         </div>
-        <div className="paragraph-container">
-          <h2>Rick and morty Series</h2>
+        <div className="paragraph-container home-content">
+          <div className="welcome-message">
+            Welcome,&nbsp;{" "}
+            <span className="welcome-user"> {currentUser?.email}!</span>
+          </div>
+          <h2> Here's a description for Rick and morty Series</h2>
           <div className="paragraph">
             Rick and Morty is an animated science fiction sitcom that follows
             the misadventures of an eccentric, alcoholic scientist named Rick

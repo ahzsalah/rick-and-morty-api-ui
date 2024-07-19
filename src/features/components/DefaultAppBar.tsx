@@ -19,7 +19,7 @@ const darkTheme = createTheme({
 });
 
 export default function DefaultAppBar() {
-  const { logout } = useAuth();
+  const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleFavoriteClick = () => {
@@ -38,9 +38,10 @@ export default function DefaultAppBar() {
   return (
     <ThemeProvider theme={darkTheme}>
       <AppBar className="app-bar">
-        <Toolbar className="toolbar">
-          <Box className="toolbar-contents navbar-menu">
+        <Toolbar className="tool-bar">
+          <Box className="toolbar-contents" sx={{ flexGrow: 1 }}>
             <IconButton
+              className="navbar-menu"
               edge="start"
               color="inherit"
               aria-label="menu"
@@ -49,39 +50,75 @@ export default function DefaultAppBar() {
               <MenuIcon />
             </IconButton>
           </Box>
-          <Box className="toolbar-contents navbar-title">
-            <Typography variant="h6" component="div">
-              Rick and Morty
-            </Typography>
-          </Box>
-          <Box className="toolbar-contents box-buttons">
-            <Button
-              className="box-button"
-              component={Link}
-              to="/"
-              color="inherit"
-            >
-              Home
-            </Button>
-            <Button
-              className="box-button"
-              component={Link}
-              to="/characters"
-              color="inherit"
-            >
-              Characters
-            </Button>
-          </Box>
-          <IconButton color="inherit" onClick={handleFavoriteClick}>
-            <FavoriteIcon />
-          </IconButton>
-          <Button
-            color="inherit"
-            onClick={handleLogout}
-            style={{ marginLeft: "auto" }}
+
+          <Typography
+            className="navbar-title"
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1, textAlign: "center" }}
           >
-            Logout
-          </Button>
+            Rick and Morty
+          </Typography>
+
+          <Box
+            className="toolbar-contents"
+            sx={{
+              flexGrow: 1,
+              display: "flex",
+              justifyContent: "flex-end",
+              alignItems: "center",
+            }}
+          >
+            {currentUser ? (
+              <>
+                <Button
+                  className="box-button"
+                  component={Link}
+                  to="/"
+                  color="inherit"
+                >
+                  Home
+                </Button>
+                <Button
+                  className="box-button"
+                  component={Link}
+                  to="/characters"
+                  color="inherit"
+                >
+                  Characters
+                </Button>
+                <IconButton color="inherit" onClick={handleFavoriteClick}>
+                  <FavoriteIcon />
+                </IconButton>
+                <Typography
+                  className="user-email-navbar"
+                  variant="body1"
+                  color="inherit"
+                  sx={{
+                    ml: 2,
+                    display: "flex",
+                    alignItems: "center",
+                    height: "100%",
+                  }}
+                >
+                  {currentUser.email}
+                </Typography>
+                <Button color="inherit" onClick={handleLogout} sx={{ ml: 2 }}>
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <Button
+                className="box-button"
+                component={Link}
+                to="/login"
+                color="inherit"
+                sx={{ ml: 2 }}
+              >
+                Login
+              </Button>
+            )}
+          </Box>
         </Toolbar>
       </AppBar>
     </ThemeProvider>

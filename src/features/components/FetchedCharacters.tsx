@@ -5,6 +5,7 @@ import { Bars } from "react-loader-spinner";
 import { CharacterDTO } from "../dtos/CharacterDTO";
 import SearchBar from "./SearchBar";
 import { fetchCharacters, searchCharacters } from "./../../api/apiService";
+import { useQuery } from "@tanstack/react-query";
 
 interface FetchedCharactersProps {
   search: string;
@@ -19,40 +20,12 @@ export default function FetchedCharacters({
   favorites,
   toggleFavorite,
 }: FetchedCharactersProps) {
-  const [characters, setCharacters] = useState<CharacterDTO[]>([]);
-  const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
-  const [filteredCharacters, setFilteredCharacters] = useState<CharacterDTO[]>(
-    []
-  );
-  // const [search, setSearch] = useState("");
 
-  useEffect(() => {
-    const getCharacters = async () => {
-      try {
-        setLoading(true);
-        const data = search
-          ? await searchCharacters(search, page)
-          : await fetchCharacters(page);
-        setCharacters(data.results);
-        setTotalPages(data.info.pages);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching characters:", error);
-        setLoading(false);
-      }
-    };
-    getCharacters();
-  }, [page, search]);
-
-  useEffect(() => {
-    setFilteredCharacters(
-      characters.filter((character) =>
-        character.name.toLowerCase().includes(search.toLowerCase())
-      )
-    );
-  }, [characters, search]);
+  const { data: characters, isLoading } = useQuery({
+    queryKey: ["characters", page, search],
+    queryFn: () => fetchCharacters(page, search),
+  });
 
   const goToPreviousPage = () => {
     if (page > 1) {
@@ -61,7 +34,7 @@ export default function FetchedCharacters({
   };
 
   const goToNextPage = () => {
-    if (page < totalPages) {
+    if (page < characters?.pages) {
       setPage(page + 1);
     }
   };
@@ -70,13 +43,13 @@ export default function FetchedCharacters({
     <div className="characters-container">
       <SearchBar search={search} setSearch={setSearch} />
 
-      {loading ? (
+      {isLoading ? (
         <div className="loading-container">
           <Bars height="80" width="80" color="#1976d2" ariaLabel="loading" />
         </div>
       ) : (
         <div className="card-container">
-          {filteredCharacters.map((character) => (
+          {characters?.results?.map((character: CharacterDTO) => (
             <ActionAreaCard
               key={character.id}
               id={character.id}
@@ -99,12 +72,12 @@ export default function FetchedCharacters({
           Prev
         </button>
         <span className="single-control">
-          Page {page} of {totalPages}
+          Page {page} of {characters?.pages}
         </span>
         <button
           className="single-control"
           onClick={goToNextPage}
-          disabled={page === totalPages}
+          disabled={page === characters?.pages}
         >
           Next
         </button>

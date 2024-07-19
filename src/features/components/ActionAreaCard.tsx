@@ -29,7 +29,7 @@ export default function ActionAreaCard({
   };
 
   return (
-    <Card className="card" sx={{ maxWidth: 345 }}>
+    <Card className="card" sx={{ maxWidth: 345, backgroundColor: "#808080" }}>
       <CardActionArea className="card-action" onClick={handleClick}>
         <CardMedia
           className="card-media"

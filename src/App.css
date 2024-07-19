@@ -40,7 +40,6 @@
 .card-container {
   display: flex;
   flex-wrap: wrap;
-
   justify-content: center;
 }
 
@@ -48,6 +47,7 @@
   margin: 15px;
   width: 185px;
   padding: 15px;
+  /* background-color: #808080; */
 }
 
 .card-media {
@@ -75,6 +75,10 @@
 
 .home-contents {
   padding-top: 80px;
+}
+
+.home-content {
+  margin: 10px;
 }
 
 .nav-bar-buttons {
@@ -124,6 +128,7 @@
 
 .paragraph-container {
   flex: 2;
+  /* margin-left: 15px; */
 }
 
 .loading-container {
@@ -177,4 +182,25 @@
 
 .character-header {
   margin-top: 10px;
+}
+
+.user-email-navbar {
+  align-items: center;
+  display: flex;
+}
+
+.welcome-message {
+  padding-bottom: 30px;
+
+  font-size: larger;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.welcome-user {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  font-size: larger;
 }
