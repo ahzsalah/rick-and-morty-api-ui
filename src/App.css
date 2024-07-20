@@ -66,6 +66,7 @@
 
 .app-bar {
   position: fixed;
+  margin: 0;
 }
 
 .navbar-menu {
@@ -94,6 +95,7 @@
 .toolbar-contents {
   display: flex;
   flex-grow: 1;
+  flex: 1 1 0px;
 }
 
 .navbar-title {

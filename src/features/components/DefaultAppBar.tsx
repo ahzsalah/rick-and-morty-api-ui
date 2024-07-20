@@ -5,7 +5,7 @@ import IconButton from "@mui/material/IconButton";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { Box, Button } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useAuth } from "../../contexts/AuthContext";
 
@@ -21,6 +21,10 @@ const darkTheme = createTheme({
 export default function DefaultAppBar() {
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const isHomeActive = location.pathname === "/";
+  const isCharactersActive = location.pathname === "/characters";
+  const isFavoritesActive = location.pathname === "/favorites";
 
   const handleFavoriteClick = () => {
     navigate("/favorites");
@@ -70,12 +74,15 @@ export default function DefaultAppBar() {
             }}
           >
             {currentUser ? (
-              <>
+              <Box>
                 <Button
                   className="box-button"
                   component={Link}
                   to="/"
                   color="inherit"
+                  sx={{
+                    color: isHomeActive ? "#535bf2" : "none",
+                  }}
                 >
                   Home
                 </Button>
@@ -84,13 +91,24 @@ export default function DefaultAppBar() {
                   component={Link}
                   to="/characters"
                   color="inherit"
+                  sx={{
+                    color: isCharactersActive ? "#535bf2" : "none",
+                  }}
                 >
                   Characters
                 </Button>
-                <IconButton color="inherit" onClick={handleFavoriteClick}>
+                <IconButton
+                  color="inherit"
+                  onClick={handleFavoriteClick}
+                  sx={{
+                    backgroundColor: isFavoritesActive ? "#3e44b7" : "none",
+                    borderRadius: "10px",
+                    padding: "4px",
+                  }}
+                >
                   <FavoriteIcon />
                 </IconButton>
-                <Typography
+                {/* <Typography
                   className="user-email-navbar"
                   variant="body1"
                   color="inherit"
@@ -102,11 +120,11 @@ export default function DefaultAppBar() {
                   }}
                 >
                   {currentUser.email}
-                </Typography>
+                </Typography> */}
                 <Button color="inherit" onClick={handleLogout} sx={{ ml: 2 }}>
                   Logout
                 </Button>
-              </>
+              </Box>
             ) : (
               <Button
                 className="box-button"

@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./../../App.css";
 import ActionAreaCard from "./ActionAreaCard";
 import { Bars } from "react-loader-spinner";
 import { CharacterDTO } from "../dtos/CharacterDTO";
 import SearchBar from "./SearchBar";
-import { fetchCharacters, searchCharacters } from "./../../api/apiService";
+import { fetchCharacters } from "./../../api/apiService";
 import { useQuery } from "@tanstack/react-query";
 
 interface FetchedCharactersProps {
