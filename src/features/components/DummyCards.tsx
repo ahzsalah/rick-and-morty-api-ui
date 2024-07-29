@@ -28,7 +28,7 @@ const data = [
 export default function DummyCards() {
   return (
     <div className="card-container">
-      {data.map((item) => {
+      {/* {data.map((item) => {
         return (
           <ActionAreaCard
             key={item.id}
@@ -38,7 +38,7 @@ export default function DummyCards() {
             image={item.image}
           />
         );
-      })}
+      })} */}
     </div>
   );
 }
