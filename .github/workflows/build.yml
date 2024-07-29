@@ -39,7 +39,7 @@ jobs:
           aws-region: eu-central-1  # Change to your preferred region
 
       - name: Sync files to S3
-        run: aws s3 sync build/ s3://salah-second-bucket/
+        run: aws s3 sync dist/ s3://salah-second-bucket/
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
