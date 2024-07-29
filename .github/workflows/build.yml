@@ -52,7 +52,7 @@ jobs:
           slack-webhook-url: ${{ secrets.SLACK_BOT_TOKEN }}
           payload: |
             {
-              "channel": "#your-channel-name",
+              "channel": "general",
               "username": "github-actions",
               "text": "The build and deploy workflow has completed successfully.",
               "icon_emoji": ":rocket:"
